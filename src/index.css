@@ -1,6 +1,9 @@
-html{
+html {
   background-color: white !important;
   color: black !important;
+}
+table {
+  background-color: white !important;
 }
 @tailwind base;
 @tailwind components;

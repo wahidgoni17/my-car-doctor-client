@@ -15,24 +15,23 @@ const Navbar = () => {
       <li>
         <Link to="/">Home</Link>
       </li>
-      <li>
+      {/* <li>
         <Link to="/about">About</Link>
-      </li>
+      </li> */}
       {user?.email ? (
+        <>
+        <li>
+        <Link to="/bookings">Bookings</Link>
+        </li>
         <li>
           <button onClick={handleLogout}>Logout</button>
         </li>
+        </>
       ) : (
         <li>
           <Link to="/login">Login</Link>
         </li>
       )}
-      <li>
-        <a>Services</a>
-      </li>
-      <li>
-        <a>Blog</a>
-      </li>
     </>
   );
   return (
