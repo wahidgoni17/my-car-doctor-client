@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import login from "../../assets/images/login/login.svg";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
+import SharedLogin from "../Shared/SharedLogin/SharedLogin";
 const SignUp = () => {
     const {createUser} = useContext(AuthContext)
     const handleSignUp = event =>{
@@ -55,7 +56,7 @@ const SignUp = () => {
                   <span className="label-text">Confirm Password</span>
                 </label>
                 <input
-                  type="text"
+                  type="password"
                   name="password"
                   placeholder="Confirm Password"
                   className="input text-white input-bordered"
@@ -70,6 +71,7 @@ const SignUp = () => {
               </div>
             </form>
             <p className="my-4 text-center">Already Have an Account <Link className="text-orange-500 font-bold" to="/login">Go to Login</Link></p>
+            <SharedLogin></SharedLogin>
           </div>
         </div>
       </div>

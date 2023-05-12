@@ -4,18 +4,29 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthProvider";
 import BookingRow from "./BookingRow";
+import { useNavigate } from "react-router-dom";
 
 const Bookings = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [bookings, setBookings] = useState([]);
   const url = `http://localhost:4550/bookings?email=${user?.email}`;
   useEffect(() => {
-    fetch(url)
+    fetch(url, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("car-access-token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        setBookings(data);
+        if (!data.error) {
+          setBookings(data);
+        } else {
+          navigate("/");
+        }
       });
-  }, [url]);
+  }, [url, navigate]);
   const handleDelete = (id) => {
     const proceed = confirm("are you sure, you want to delete");
     if (proceed) {
@@ -44,11 +55,11 @@ const Bookings = () => {
       .then((data) => {
         if (data.modifiedCount > 0) {
           const remaining = bookings.filter((booking) => booking._id !== id);
-          const updated = bookings.find(booking=>booking._id === id)
-          updated.status = 'confirm'
-          const newBookings = [updated, ...remaining]
-          confirm('Confirmed Successfully')
-          setBookings(newBookings)
+          const updated = bookings.find((booking) => booking._id === id);
+          updated.status = "confirm";
+          const newBookings = [updated, ...remaining];
+          confirm("Confirmed Successfully");
+          setBookings(newBookings);
         }
       });
   };

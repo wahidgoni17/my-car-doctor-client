@@ -1,9 +1,13 @@
 import React, { useContext } from "react";
 import login from "../../assets/images/login/login.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
+import SharedLogin from "../Shared/SharedLogin/SharedLogin";
 const Login = () => {
     const {signIn} = useContext(AuthContext)
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location.state?.from?.pathname || '/'
     const handleLogin = event =>{
         event.preventDefault()
         const form = event.target
@@ -13,6 +17,7 @@ const Login = () => {
         .then(result=>{
             const loginUser = result.user
             console.log(loginUser)
+            navigate(from, {replace: true})
         })
         .catch(error=>console.error(error))
     }
@@ -42,7 +47,7 @@ const Login = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  type="text"
+                  type="password"
                   name="password"
                   placeholder="password"
                   className="input text-white input-bordered"
@@ -62,6 +67,7 @@ const Login = () => {
               </div>
             </form>
             <p className="my-4 text-center">New to Cars Doctor <Link className="text-orange-500 font-bold" to="/signup">Create An Account</Link></p>
+            <SharedLogin></SharedLogin>
           </div>
         </div>
       </div>

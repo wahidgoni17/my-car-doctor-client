@@ -4,11 +4,13 @@ import { useContext } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const handleLogout = () =>{
+  const handleLogout = () => {
     logOut()
-    .then(()=>{})
-    .catch(error=>{console.log(error)})
-  }
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const navitem = (
     <>
@@ -20,12 +22,12 @@ const Navbar = () => {
       </li> */}
       {user?.email ? (
         <>
-        <li>
-        <Link to="/bookings">Bookings</Link>
-        </li>
-        <li>
-          <button onClick={handleLogout}>Logout</button>
-        </li>
+          <li>
+            <Link to="/bookings">Bookings</Link>
+          </li>
+          <li>
+            <button onClick={handleLogout}>Logout</button>
+          </li>
         </>
       ) : (
         <li>
